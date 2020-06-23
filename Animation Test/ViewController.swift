@@ -46,16 +46,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonClicked(_ sender: Any) {
-        
-        self.tableView.beginUpdates()
-        self.tableView.moveRow(at: IndexPath(row: 1, section: 0), to: IndexPath(row: 5, section: 0))
-        self.tableView.endUpdates()
-        /*
-        let element = self.data.randomElement()
-        self.data.insert(element!, at: 0)
-        let indexPath = IndexPath(row: 1, section: 0)
-        self.tableView.insertRows(at: [indexPath], with: .middle)
-         */
+        let index = IndexPath(row: 3, section: 0)
+        let cell = tableView.cellForRow(at: index) as! TaskCell
+        cell.completeTask { _ in
+            self.tableView.beginUpdates()
+            self.data.remove(at: 2)
+            self.tableView.deleteRows(at: [index], with: .bottom)
+            self.tableView.endUpdates()
+        }
 
     }
 }
@@ -84,6 +82,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell") as! TaskCell
             (cell as? TaskCell)?.setup(with: self.data[indexPath.row - 1])
+            (cell as? TaskCell)?.delegate = self
         }
         
         return cell
@@ -98,5 +97,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.endUpdates()
     }
     
+    
+}
+
+extension ViewController: TaskCellDelegate {
+    
+    func taskCellDelegateBeginTableViewUpdate() {
+        self.tableView.beginUpdates()
+    }
+    
+    func taskCellDelegateEndTableViewUpdate() {
+        self.tableView.endUpdates()
+    }
     
 }

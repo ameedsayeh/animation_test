@@ -16,8 +16,8 @@ class FooterCell: UITableViewCell {
         }
         set (newFrame) {
             var frame = newFrame
-            frame.origin.x += 10
-            frame.size.width -= 2 * 10
+            frame.origin.x += 20
+            frame.size.width -= 2 * 20
             super.frame = frame
         }
     }
