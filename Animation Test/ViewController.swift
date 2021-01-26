@@ -56,6 +56,29 @@ class ViewController: UIViewController {
         }
 
     }
+    
+    @IBAction func handleAnimate(_ sender: Any) {
+        
+        let action = Int.random(in: 0...3)
+        let cellRow = Int.random(in: 1...5)
+        let indexPath = IndexPath(row: cellRow, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as! TaskCell
+        
+        switch action {
+            case 0:
+                cell.completeTask(completion: nil)
+            case 1:
+                cell.grayOutColors()
+            case 2:
+                cell.hideProgressContainer(hide: Bool.random(), completion: nil)
+            case 3:
+                cell.hideRequiredLabel(hide: Bool.random(), completion: nil)
+            default:
+            break
+        }
+        
+    }
+    
 }
 
 
@@ -96,9 +119,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-    
-    
 }
+
+
+
 
 extension ViewController: TaskCellDelegate {
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskCell: UITableViewCell {
+@objc class TaskCell: UITableViewCell {
     
     @IBOutlet weak var taskTitleLabel: UILabel!
     @IBOutlet weak var requiredLabel: UILabel!
@@ -30,6 +30,7 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var bottomSeperatorViewHeightConstraint: NSLayoutConstraint!
     
     weak var delegate: TaskCellDelegate?
+    
     
     override var frame: CGRect {
         get {
